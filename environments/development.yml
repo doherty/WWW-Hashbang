@@ -1,0 +1,9 @@
+maxlinks:       5
+pages:          "/home/mike/pages"
+
+log:            "core"
+warnings:       1
+show_errors:    1
+
+# Module::Refresh is needed
+auto_reload:    1
