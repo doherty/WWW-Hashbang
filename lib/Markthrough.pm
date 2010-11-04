@@ -67,6 +67,63 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
     }
 };
 
+# SOURCECODE
+get '/Markthrough.pm' => sub {
+    # From http://sedition.com/perl/perl-colorizer.html
+    require Syntax::Highlight::Perl::Improved;
+    my $color_table = {
+        'Variable_Scalar'   => 'color:#080;',
+        'Variable_Array'    => 'color:#f70;',
+        'Variable_Hash'     => 'color:#80f;',
+        'Variable_Typeglob' => 'color:#f03;',
+        'Subroutine'        => 'color:#980;',
+        'Quote'             => 'color:#00a;',
+        'String'            => 'color:#00a;',
+        'Comment_Normal'    => 'color:#069;font-style:italic;',
+        'Comment_POD'       => 'color:#014;font-family:garamond,serif;font-size:11pt;',
+        'Bareword'          => 'color:#3A3;',
+        'Package'           => 'color:#900;',
+        'Number'            => 'color:#f0f;',
+        'Operator'          => 'color:#000;',
+        'Symbol'            => 'color:#000;',
+        'Keyword'           => 'color:#000;',
+        'Builtin_Operator'  => 'color:#300;',
+        'Builtin_Function'  => 'color:#001;',
+        'Character'         => 'color:#800;',
+        'Directive'         => 'color:#399;font-style:italic;',
+        'Label'             => 'color:#939;font-style:italic;',
+        'Line'              => 'color:#000;',
+    };
+    my $formatter = Syntax::Highlight::Perl::Improved->new();
+    $formatter->define_substitution('<' => '&lt;',
+                                    '>' => '&gt;',
+                                    '&' => '&amp;'); # HTML escapes.
+
+    # install the formats set up above
+    while ( my ( $type, $style ) = each %{$color_table} ) {
+        $formatter->set_format( $type, [ qq{<span style="$style">}, qq{</span>} ] );
+    }
+
+    my $filename = config->{confdir} . '/' . __FILE__;
+    open(my $file, '<', $filename);
+    my $sourcecode = <<"";
+<h1>Source code for <code>Markthrough.pm</code></h1>
+<pre id="source">
+
+    while (<$file>) {
+        $sourcecode .= $formatter->format_string;
+    }
+    $sourcecode .= '</pre>';
+    close($file);
+
+    my $data;
+    $data->{title} = 'Markthrough.pm';
+    $data->{links} = links('Markthrough.pm'); # ?
+    $data->{markthrough} = $sourcecode;
+    $data->{footer} = markthrough_footer(undef, 'none');
+    
+    template 'markthrough' => $data;
+};
 
 sub markthrough_footer {
     my $page = shift;
