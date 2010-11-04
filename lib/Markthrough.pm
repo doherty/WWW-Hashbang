@@ -12,6 +12,11 @@ use autodie 2.10;
 
 prefix undef;
 
+# REDIRECT
+get qr{^/?$} => sub {
+    return redirect '/home';
+};
+
 # SOURCE
 get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     my ($file) = splat;
