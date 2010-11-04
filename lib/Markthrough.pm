@@ -121,7 +121,7 @@ get '/Markthrough.pm' => sub {
     $data->{links} = links('Markthrough.pm'); # ?
     $data->{markthrough} = $sourcecode;
     $data->{footer} = markthrough_footer(undef, 'none');
-    
+
     template 'markthrough' => $data;
 };
 
@@ -129,25 +129,24 @@ sub markthrough_footer {
     my $page = shift;
     my $mode = shift;
 
-    my $modified = scalar localtime ((stat(config->{pages} . "/$page"))[9]);
-    my $markdown;
+    my $markdown = '';
     if ($mode eq 'view') {
         $page =~ tr{.}{/};
-        $markdown = <<"END";
-View [page source](/$page/src). Last modified $modified.
-Rendered with [markthrough](http://hashbang.ca/~mike/page/projects/markthrough)
-and [Text::Markdown](http://search.cpan.org/perldoc?Text::Markdown).
-END
+        $markdown .= "View [page source](/$page/src).\n";
     }
     elsif ($mode eq 'source') {
         $page =~ s{/src$}{};
         $page =~ tr{.}{/};
-        $markdown = <<"END";
-Return to the [parsed](/$page) view. Last modified $modified.
-Rendered with [markthrough](http://hashbang.ca/~mike/page/projects/markthrough)
+        $markdown .= "Return to the [parsed](/$page) view.\n";
+    }
+    unless ($mode eq 'none') {
+        my $modified = scalar localtime ((stat(config->{pages} . "/$page"))[9]);
+        $markdown .= "Last modified $modified.\n"
+    }
+    $markdown .= <<"END";
+Rendered with [Markthrough](http://hashbang.ca/~mike/page/projects/markthrough).[pm](/Markthrough.pm)
 and [Text::Markdown](http://search.cpan.org/perldoc?Text::Markdown).
 END
-    }
 
     return markdown($markdown);
 }
