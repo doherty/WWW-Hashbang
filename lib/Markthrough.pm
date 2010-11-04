@@ -144,8 +144,8 @@ sub markthrough_footer {
         $markdown .= "Last modified $modified.\n"
     }
     $markdown .= <<"END";
-Rendered with [Markthrough](http://hashbang.ca/~mike/page/projects/markthrough).[pm](/Markthrough.pm)
-and [Text::Markdown](http://search.cpan.org/perldoc?Text::Markdown).
+Rendered by [Markthrough](http://hashbang.ca/~mike/page/projects/markthrough).[pm](/Markthrough.pm)
+using [Text::Markdown](http://search.cpan.org/perldoc?Text::Markdown).
 END
 
     return markdown($markdown);
