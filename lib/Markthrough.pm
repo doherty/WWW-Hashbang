@@ -61,6 +61,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         $data->{title} = "Directory listing ($file)";
         $data->{links} = links($file);
         $data->{markthrough} = markdown(dirlist($file));
+        $data->{footer} = markthrough_footer($file, 'none');
 
         template 'markthrough' => $data;
     }
