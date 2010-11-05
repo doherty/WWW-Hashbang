@@ -30,6 +30,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
         $data->{markthrough} = join('', @lines);
         $data->{links} = links($file);
         $data->{footer} = markthrough_footer($file, 'source');
+        $data->{skin} = 'greypages';
 
         template 'source' => $data;
     }
@@ -53,6 +54,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         });
         $data->{links} = links($file);
         $data->{footer} = markthrough_footer($file, 'view');
+        $data->{skin} = 'greypages';
 
         template 'markthrough' => $data;
     }
@@ -62,6 +64,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         $data->{links} = links($file);
         $data->{markthrough} = markdown(dirlist($file));
         $data->{footer} = markthrough_footer($file, 'none');
+        $data->{skin} = 'greypages';
 
         template 'markthrough' => $data;
     }
@@ -121,6 +124,7 @@ get '/Markthrough.pm' => sub {
     $data->{links} = links('Markthrough.pm'); # ?
     $data->{markthrough} = $sourcecode;
     $data->{footer} = markthrough_footer(undef, 'none');
+    $data->{skin} = 'greypages';
 
     template 'markthrough' => $data;
 };

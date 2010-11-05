@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+body {
+    color: #252525;
+    background: #EEEEEE url('/images/inthedeep-bg.png') no-repeat top right fixed;
+    font-family: "DejaVu Sans", sans-serif;
+    font-size: 80%;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+#page {
+    float: left;
+    width: 100%;
+}
+#content {
+    float: left;
+    min-width: 35em;
+    width: 100%;
+}
+#footer {
+    float: left;
+    margin-top: 1%;
+    padding-top: .3em;
+    border-top: dashed 1px #555555;
+    font-size: smaller;
+    width: 100%;
+    margin-left: -1em;
+}
+#content li {
+    line-height: 145%;
+    width: 50%;
+    min-width: 35em;
+}
+#content p {
+    margin-left: 2em;
+    margin-right: 2em;
+    line-height: 1.3em;
+    width: 50%;
+    min-width: 35em;        /* 0% IE6, 37% IE7, OK in others */
+    text-align: justify;
+}
+pre {
+    background-color: #F9F9F9;
+    font-family: "DejaVu Mono", monospace;
+    line-height: 1.25em;
+    padding: 1em;
+    border: 1px dashed #2F6FAB;
+    overflow: auto;         /* Give me scrollbars wherever you need to, but don't flow off the page. */
+    padding-bottom: 1em;    /* Add a line of space to avoid having a horizontal scrollbar crowd the text unconfortably. */
+    font-size: 120%;        /* Mostly for readability in Chrome. */
+}
+table {
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid #AAAAAA;
+    border-collapse: collapse;
+    margin: 1em 1em 1em 0;
+}
+th, td {
+    padding: .25em;
+}
+th {
+    background: #F2F2F2 none repeat scroll 0 0;
+    text-align: center;
+    border: 1px solid #AAAAAA;
+}
+td {
+    border: 1px dashed #AAAAAA;
+}
+#sidebar-items {
+    position: absolute;
+    right: 2em;
+    top: 0;
+    margin: 0;
+}
+#sidebar-items h3 {
+    display: none;
+}
+#sidebar-items ul {
+    margin: 0 auto;
+    padding: 0;
+}
+#sidebar-items li {
+    float: left;
+    list-style-type: none;
+    list-style-position: outside;
+    list-style-image: none;
+    padding: 0 0.5em 0 0.5em;
+    display: inline;
+    border-color: #AAAAAA;
+    border-style: none solid solid solid;
+    border-width: 0px 1px 1px 1px;
+    margin: 0 0.3em 0 0.3em;
+    text-transform: lowercase;
+}
+#sidebar-items a {
+    border: none;
+}
+#sidebar-items li:hover {
+    border-style: none dashed dashed dashed;
+}
+.here {
+    font-weight: bold;
+    text-decoration: none;
+}
+a, a:visited, a:hover {
+    color: #555555;
+    border-bottom: solid 1px #666666;
+    text-decoration: none;
+}
+a:hover {
+    border-bottom: dashed 1px #666666;
+}
+.email {
+    border-bottom: solid 1px #666666;
+    font-family: monospace;
+    color: #555555;
+}
+.email:hover {
+    border-bottom: dashed 1px #666666;
+}
+h1 {
+    font-size: 150%;
+    color: #222222;
+    border-bottom: dashed 1px black;
+    margin-bottom: 1em;
+}
+h2 {
+    font-size: 130%;
+    text-decoration: underline;
+}
+h3 {
+    font-size: 100%;
+}
+ul.dirlist {
+    font-size: 1.12em;
+    line-height: 1.75;
+}
+blockquote {
+    font-style: italic;
+}
+.at {
+    background: transparent url('/images/at-grey.png') no-repeat;
+    color: #CC0000;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+
+/* Convenience classes */
+.right {
+    text-align: right;
+}
+
+.imgframe {
+    float: left;
+    padding: 1em;
+}
+.imgframe p {
+    text-align: center;
+}
+.imgframe img {
+    border: 1px solid #555555;
+    padding: 4px;
+}
+.imgframe img:hover {
+    border: 1px dashed #555555;
+}
+.imgframe a {
+    cursor: pointer;
+}
