@@ -54,7 +54,7 @@ get '/Markthrough.pm' => sub {
         $formatter->set_format( $type, [ qq{<span style="$style">}, qq{</span>} ] );
     }
 
-    my $filename = config->{confdir} . '/' . __FILE__;
+    my $filename = __FILE__;
     open(my $file, '<', $filename);
     my $sourcecode = <<"";
 <h1>Source code for <code>Markthrough.pm</code></h1>

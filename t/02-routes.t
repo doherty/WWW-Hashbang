@@ -7,7 +7,7 @@ my $tests = 0;
 use Markthrough;
 use Dancer::Test;
 
-my @reqs = qw(/home /test /test/one /test/one/two);
+my @reqs = qw(/home /test /test/one /test/one/two /Markthrough.pm);
 foreach my $req (@reqs) {
     route_exists(       [GET => $req],          "a route handler is defined for $req");
     response_status_is( ['GET' => $req], 200,   "response status is 200 for $req");
