@@ -173,7 +173,7 @@ sub dirlist {
         my $title = <$fh>;
         close $fh;
         $file =~ tr{.}{/};
-        $markdown .= " * [$title]($file)\n";
+        $markdown .= " * [$title]($file) `($file)`\n";
     }
     return $markdown;
 }

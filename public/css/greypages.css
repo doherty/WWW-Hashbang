@@ -47,7 +47,6 @@ pre {
     border: 1px dashed #2F6FAB;
     overflow: auto;         /* Give me scrollbars wherever you need to, but don't flow off the page. */
     padding-bottom: 1em;    /* Add a line of space to avoid having a horizontal scrollbar crowd the text unconfortably. */
-    font-size: 120%;        /* Mostly for readability in Chrome. */
 }
 table {
     background: transparent none repeat scroll 0 0;
