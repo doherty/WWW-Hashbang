@@ -17,59 +17,6 @@ get qr{^/?$} => sub {
     return redirect '/home';
 };
 
-# SOURCE
-get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
-    my ($file) = splat;
-    $file =~ tr{/}{.};
-
-    if ( -r config->{pages} . "/$file" ) {
-        my @lines = read_file(config->{pages} . "/$file");
-        my $data;
-
-        $data->{title} = encode_entities($lines[0]);
-        $data->{markthrough} = join('', @lines);
-        $data->{links} = links($file);
-        $data->{footer} = markthrough_footer($file, 'source');
-        $data->{skin} = 'greypages';
-
-        template 'source' => $data;
-    }
-    else {
-
-    }
-};
-
-# VIEW
-get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
-    my ($file) = splat;
-    $file =~ tr{/}{.};
-
-    if ( -r config->{pages} . "/$file" ) {
-        my @lines = read_file(config->{pages} . "/$file");
-        my $data;
-
-        $data->{title} = encode_entities($lines[0]);
-        $data->{markthrough} = markdown(join('', @lines), {
-            trust_list_start_value => 1,
-        });
-        $data->{links} = links($file);
-        $data->{footer} = markthrough_footer($file, 'view');
-        $data->{skin} = 'greypages';
-
-        template 'markthrough' => $data;
-    }
-    else {
-        my $data;
-        $data->{title} = "Directory listing ($file)";
-        $data->{links} = links($file);
-        $data->{markthrough} = markdown(dirlist($file));
-        $data->{footer} = markthrough_footer($file, 'none');
-        $data->{skin} = 'greypages';
-
-        template 'markthrough' => $data;
-    }
-};
-
 # SOURCECODE
 get '/Markthrough.pm' => sub {
     # From http://sedition.com/perl/perl-colorizer.html
@@ -128,6 +75,60 @@ get '/Markthrough.pm' => sub {
 
     template 'markthrough' => $data;
 };
+
+# SOURCE
+get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
+    my ($file) = splat;
+    $file =~ tr{/}{.};
+
+    if ( -r config->{pages} . "/$file" ) {
+        my @lines = read_file(config->{pages} . "/$file");
+        my $data;
+
+        $data->{title} = encode_entities($lines[0]);
+        $data->{markthrough} = join('', @lines);
+        $data->{links} = links($file);
+        $data->{footer} = markthrough_footer($file, 'source');
+        $data->{skin} = 'greypages';
+
+        template 'source' => $data;
+    }
+    else {
+
+    }
+};
+
+# VIEW
+get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
+    my ($file) = splat;
+    $file =~ tr{/}{.};
+
+    if ( -r config->{pages} . "/$file" ) {
+        my @lines = read_file(config->{pages} . "/$file");
+        my $data;
+
+        $data->{title} = encode_entities($lines[0]);
+        $data->{markthrough} = markdown(join('', @lines), {
+            trust_list_start_value => 1,
+        });
+        $data->{links} = links($file);
+        $data->{footer} = markthrough_footer($file, 'view');
+        $data->{skin} = 'greypages';
+
+        template 'markthrough' => $data;
+    }
+    else {
+        my $data;
+        $data->{title} = "Directory listing ($file)";
+        $data->{links} = links($file);
+        $data->{markthrough} = markdown(dirlist($file));
+        $data->{footer} = markthrough_footer($file, 'none');
+        $data->{skin} = 'greypages';
+
+        template 'markthrough' => $data;
+    }
+};
+
 
 sub markthrough_footer {
     my $page = shift;
