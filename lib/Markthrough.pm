@@ -144,12 +144,14 @@ sub markthrough_footer {
         $markdown .= "Return to the [parsed](/$page) view.\n";
     }
     unless ($mode eq 'none') {
-        my $modified = scalar localtime ((stat(config->{pages} . "/$page"))[9]);
+        $page =~ tr{/}{.};
+        my $filename = config->{pages} . "/$page";
+        my $modified = scalar localtime ((stat($filename))[9]);
         $markdown .= "Last modified $modified.\n"
     }
     $markdown .= <<"END";
-Rendered by [Markthrough](http://hashbang.ca/~mike/page/projects/markthrough).[pm](/Markthrough.pm)
-using [Text::Markdown](http://search.cpan.org/perldoc?Text::Markdown).
+Rendered by [Markthrough](http://hashbang.ca/~mike/page/projects/markthrough).[`pm`](/Markthrough.pm)
+using [`Text::Markdown`](http://search.cpan.org/perldoc?Text::Markdown).
 END
 
     return markdown($markdown);
