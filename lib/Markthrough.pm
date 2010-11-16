@@ -1,9 +1,15 @@
+use strict;
+use warnings;
+use 5.010001;
+#use diagnostics;
+
 package Markthrough;
 # ABSTRACT: a simple CMS-like thing to quickly deploy text webpages
 
 use Dancer 1.1901 qw(:syntax);
 use Dancer::Cookie;
 use File::Slurp;
+use File::Basename qw(basename);
 use HTML::Entities;
 use Text::Markdown 1.000031 qw(markdown);
 use autodie 2.10;
@@ -68,8 +74,9 @@ get '/Markthrough.pm' => sub {
 
     my $filename = __FILE__;
     open(my $file, '<', $filename);
+    $filename = basename($filename);
     my $sourcecode = <<"";
-<h1>Source code for <code>Markthrough.pm</code></h1>
+<h1>Source code for <code>$filename</code></h1>
 <pre id="source">
 
     while (<$file>) {
@@ -79,8 +86,8 @@ get '/Markthrough.pm' => sub {
     close($file);
 
     my $data;
-    $data->{title} = 'Markthrough.pm';
-    $data->{links} = links('Markthrough.pm'); # ?
+    $data->{title} = $filename;
+    $data->{links} = links('$filename'); # ?
     $data->{markthrough} = $sourcecode;
     $data->{footer} = markthrough_footer(undef, 'none');
     $data->{skin} = vars->{skin} || 'greypages';
@@ -162,10 +169,9 @@ sub markthrough_footer {
         my $modified = scalar localtime ((stat($filename))[9]);
         $markdown .= "Last modified $modified.\n"
     }
-    $markdown .= <<"END";
+    $markdown .= <<"";
 Rendered by [Markthrough](http://hashbang.ca/~mike/page/projects/markthrough).[`pm`](/Markthrough.pm)
 using [`Text::Markdown`](http://search.cpan.org/perldoc?Text::Markdown).
-END
 
     return markdown($markdown);
 }
