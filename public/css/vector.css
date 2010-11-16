@@ -1,0 +1,425 @@
+@charset "UTF-8";
+
+/* Framework */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 1em;
+}
+body {
+    background-color: #f3f3f3;
+    background-image: url('/images/page-base.png');
+}
+
+/* Content */
+#content {
+    margin-left: 10em;
+    padding: 1em;
+    background-color: white;
+    color: black;
+    line-height: 1.5em;
+    font-size: 0.8em;
+    position: relative;
+    line-height: 1.5em;
+    border: 1px solid #a7d7f9;
+    margin-top: 2em;
+    margin-right: 1em;
+}
+
+/* Bits */
+#sidebar {
+    position: absolute;
+    top: 2em;
+    margin-left: 1.25em;
+    font-size: 0.8em;
+    line-height: 1.125em;
+}
+#sidebar-items {
+    padding: 0;
+    margin: 0;
+    list-style: none outside none;
+}
+#sidebar-items li {
+    overflow: hidden;
+}
+
+/* Footer */
+#footer {
+    margin-left: 10em;
+    margin-top: 0;
+    padding: 0.75em;
+    font-size: 75%;
+}
+#footer #popup-button {
+    float: right;
+}
+
+/*
+ * The following code is slightly modified from monobook
+ */
+/* Links */
+a {
+    text-decoration: none;
+    color: #0645ad;
+    background: none;
+}
+a:visited {
+    color: #0b0080;
+}
+a:active {
+    color: #faa700;
+}
+a:hover {
+    text-decoration: underline;
+}
+.email { /* Cheat for .email */
+    text-decoration: none;
+    color: #0645ad;
+    background: none;
+}
+.email:hover {
+    text-decoration: underline;
+}
+
+/* Inline Elements */
+img {
+    border: none;
+    vertical-align: middle;
+}
+hr {
+    height: 1px;
+    color: #aaa;
+    background-color: #aaa;
+    border: 0;
+    margin: .2em 0 .2em 0;
+}
+
+/* Structural Elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: black;
+    background: none;
+    font-weight: normal;
+    margin: 0;
+    padding-top: .5em;
+    padding-bottom: .17em;
+    border-bottom: 1px solid #aaa;
+    width: auto;
+}
+h1 { font-size: 188%; }
+h2 { font-size: 150%; }
+h3,
+h4,
+h5,
+h6 {
+    border-bottom: none;
+    font-weight: bold;
+}
+h3 { font-size: 132%; }
+h4 { font-size: 116%; }
+h5 { font-size: 100%; }
+h6 { font-size: 80%;  }
+p {
+    margin: .4em 0 .5em 0;
+    line-height: 1.5em;
+}
+    p img {
+        margin: 0;
+    }
+abbr,
+acronym,
+.explain {
+    border-bottom: 1px dotted black;
+    color: black;
+    background: none;
+    cursor: help;
+}
+q {
+    font-family: Times, "Times New Roman", serif;
+    font-style: italic;
+}
+blockquote {
+    font-family: Times, "Times New Roman", serif;
+    font-style: italic;
+}
+pre, code, tt {
+    /*
+     * It's important for this rule to first reference an actual font name, some browsers will render the monospace text
+     * too small otherwise, namely Firefox, Chrome and Safari
+     */
+    font-family: monospace, "Courier New";
+}
+code {
+    background-color: #f9f9f9;
+}
+pre {
+    padding: 1em;
+    border: 1px dashed #2F6FAB;
+    color: black;
+    background-color: #F9F9F9;
+    line-height: 1.1em;
+}
+ul {
+    line-height: 1.5em;
+    list-style-type: square;
+    margin: .3em 0 0 1.5em;
+    padding: 0;
+    list-style-image: url('/images/bullet-icon.png');
+}
+ol {
+    line-height: 1.5em;
+    margin: .3em 0 0 3.2em;
+    padding: 0;
+    list-style-image: none;
+}
+li {
+    margin-bottom: .1em;
+}
+dt {
+    font-weight: bold;
+    margin-bottom: .1em;
+}
+dl {
+    margin-top: .2em;
+    margin-bottom: .5em;
+}
+dd {
+    line-height: 1.5em;
+    margin-left: 2em;
+    margin-bottom: .1em;
+}
+/* Tables */
+table {
+    font-size: 100%;
+    color: black;
+    /* we don't want the bottom borders of <h2>s to be visible through
+     * floated tables */
+    background-color: white;
+}
+fieldset table {
+    /* but keep table layouts in forms clean... */
+    background: none;
+}
+
+/* Popup magic! */
+#popup-hidden {
+    display: none;
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6*/
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #000000;
+    border: 1px solid #cecece;
+    z-index: 1;
+}
+#popup-visible {
+    display: none;
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6*/
+    height: 500px;
+    width: 600px;
+    background: #EEEEEE;
+    border: 2px solid #CECECE;
+    z-index: 2;
+    padding: 12px;
+    font-size: 13px;
+    color: #252525;
+}
+#popup-visible h1 {
+    text-align: left;
+    color: #252525;
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 1px solid #555555;
+    padding-bottom: 2px;
+    margin-bottom: 20px;
+}
+#popup-close {
+    font-size: 1.2em;
+    font-family: monospace;
+    padding: 2px 5px;
+    right: 6px;
+    top: 4px;
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    display: block;
+    border: 1px solid #555555;
+    cursor: pointer;
+}
+#popup-close:hover {
+    border: none;
+}
+#skin-images {
+    margin-left:auto;
+    margin-right:auto;
+    width: 500px;
+}
+#skin-images a {
+    border: none;
+    text-decoration: none;
+}
+.imgframe {
+    float: left;
+    padding: 1em;
+}
+.imgframe p {
+    text-align: center;
+}
+.imgframe img {
+    border: 1px solid #555555;
+    padding: 4px;
+}
+.imgframe img:hover {
+    border: 1px dashed #555555;
+}
+.imgframe a {
+    cursor: pointer;
+}
+#skin-images p a {
+    border-bottom: 1px solid #555555;
+}
+#skin-images p a:hover {
+    border-bottom: 1px dashed #555555;
+}
+
+/* Emulate Center */
+.center {
+    width: 100%;
+    text-align: center;
+}
+*.center * {
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Small for tables and similar */
+.small, .small * {
+    font-size: 94%;
+}
+table.small {
+    font-size: 100%;
+}
+/* Edge Cases for Content */
+h1, h2 {
+    margin-bottom: .6em;
+}
+h3, h4, h5 {
+    margin-bottom: .3em;
+}
+
+#content a[href ^="https://"],
+.link-https {
+    background: url('/images/lock-icon.png') center right no-repeat;
+    padding: 0 13px 0 0;
+}
+#content a[href ^="mailto:"],
+.email {
+    background: url('/images/mail-icon.png') center right no-repeat;
+    padding: 0 13px 0 0;
+}
+.at {
+    background: transparent url('/images/at-grey.png') no-repeat;
+    color: #CC0000;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    position: relative;
+    top: 4px;
+}
+#content a[href ^="news://"] {
+    background: url('/images/news-icon.png') center right no-repeat;
+    padding: 0 13px 0 0;
+}
+#content a[href ^="ftp://"],
+.link-ftp {
+    background: url('/images/file-icon.png') center right no-repeat;
+    padding: 0 13px 0 0;
+}
+#content a[href ^="irc://"],
+.link-irc {
+    background: url('/images/talk-icon.png') center right no-repeat;
+    padding: 0 13px 0 0;
+}
+#content a[href $=".ogg"], #content a[href $=".OGG"],
+#content a[href $=".mid"], #content a[href $=".MID"],
+#content a[href $=".midi"], #content a[href $=".MIDI"],
+#content a[href $=".mp3"], #content a[href $=".MP3"],
+#content a[href $=".wav"], #content a[href $=".WAV"],
+#content a[href $=".wma"], #content a[href $=".WMA"],
+.link-audio {
+    background: url('/images/audio-icon.png') center right no-repeat;
+    padding: 0 13px 0 0;
+}
+#content a[href $=".ogm"], #content a[href $=".OGM"],
+#content a[href $=".avi"], #content a[href $=".AVI"],
+#content a[href $=".mpeg"], #content a[href $=".MPEG"],
+#content a[href $=".mpg"], #content a[href $=".MPG"],
+.link-video {
+    background: url('/images/video-icon.png') center right no-repeat;
+    padding: 0 13px 0 0;
+}
+#content a[href $=".pdf"], #content a[href $=".PDF"],
+#content a[href *=".pdf#"], #content a[href *=".PDF#"],
+#content a[href *=".pdf?"], #content a[href *=".PDF?"],
+.link-document {
+    background: url('/images/document-icon.png') center right no-repeat;
+    padding: 0 13px 0 0;
+}
+#content a, #footer a {
+    color: #36b;
+}
+
+/* hide icons on selected external links */
+.plainlinks a {
+    background:none !important;
+    padding:0 !important;
+}
+
+/*******************
+** Table formatting
+*******************/
+table {
+    margin:1em 1em 1em 0;
+    border:1px solid #AAA;
+    border-collapse:collapse;
+    background:#F9F9F9;
+}
+
+table th, table td {
+    padding:0.2em;
+    border:1px solid #AAA;
+}
+
+table th {
+    background:#F2F2F2;
+    text-align:center;
+}
+
+table caption {
+    margin-left:inherit;
+    margin-right:inherit;
+}
+
+
+
+/*******************
+** Change external link icon to Adobe icon for PDF files
+*******************/
+/* for browsers that support these CSS selectors, like Mozilla and Opera */
+#content a[href$=".pdf"],
+#content a[href*=".pdf?"],
+#content a[href*=".pdf#"],
+#content a[href$=".PDF"],
+#content a[href*=".PDF?"],
+#content a[href*=".PDF#"] {
+    padding-right:16px;
+    background:url('/images/pdf-icon.png') center right no-repeat;
+}

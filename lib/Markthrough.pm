@@ -1,7 +1,8 @@
 package Markthrough;
 # ABSTRACT: a simple CMS-like thing to quickly deploy text webpages
 
-use Dancer ':syntax';
+use Dancer 1.1901 qw(:syntax);
+use Dancer::Cookie;
 use File::Slurp;
 use HTML::Entities;
 use Text::Markdown 1.000031 qw(markdown);
@@ -11,6 +12,17 @@ use autodie 2.10;
 #use Markthrough::Admin;
 
 prefix undef;
+
+before sub {
+    if (request->path =~ m{\?useskin=(greypages|vector|style)}) {
+        var skin => $1;
+    }
+    elsif (cookies->{skin}) { # Cookie?
+        if (cookies->{skin}->value ~~ ['greypages', 'vector', 'style']) {
+            var skin => cookies->{skin}->value;
+        }
+    }
+};
 
 # REDIRECT
 get qr{^/?$} => sub {
@@ -71,7 +83,7 @@ get '/Markthrough.pm' => sub {
     $data->{links} = links('Markthrough.pm'); # ?
     $data->{markthrough} = $sourcecode;
     $data->{footer} = markthrough_footer(undef, 'none');
-    $data->{skin} = 'greypages';
+    $data->{skin} = vars->{skin} || 'greypages';
 
     template 'markthrough' => $data;
 };
@@ -89,7 +101,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
         $data->{markthrough} = join('', @lines);
         $data->{links} = links($file);
         $data->{footer} = markthrough_footer($file, 'source');
-        $data->{skin} = 'greypages';
+        $data->{skin} = vars->{skin} || 'greypages';
 
         template 'source' => $data;
     }
@@ -113,7 +125,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         });
         $data->{links} = links($file);
         $data->{footer} = markthrough_footer($file, 'view');
-        $data->{skin} = 'greypages';
+        $data->{skin} = vars->{skin} || 'greypages';
 
         template 'markthrough' => $data;
     }
@@ -123,7 +135,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         $data->{links} = links($file);
         $data->{markthrough} = markdown(dirlist($file));
         $data->{footer} = markthrough_footer($file, 'none');
-        $data->{skin} = 'greypages';
+        $data->{skin} = vars->{skin} || 'greypages';
 
         template 'markthrough' => $data;
     }
