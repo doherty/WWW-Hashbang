@@ -6,7 +6,7 @@ use 5.010001;
 package Markthrough;
 # ABSTRACT: a simple CMS-like thing to quickly deploy text webpages
 
-use Dancer 1.1901 qw(:syntax);
+use Dancer 1.2000 qw(:syntax);
 use Dancer::Cookie;
 use File::Slurp;
 use File::Basename qw(basename);
@@ -148,6 +148,11 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
     }
 };
 
+=head2 markthrough_footer
+
+This generates a footer based on the page and mode of the current request.
+
+=cut
 
 sub markthrough_footer {
     my $page = shift;
@@ -176,6 +181,12 @@ using [`Text::Markdown`](http://search.cpan.org/perldoc?Text::Markdown).
     return markdown($markdown);
 }
 
+=head2 dirlist
+
+This performs a "director" listing in the requested "directory".
+
+=cut
+
 sub dirlist {
     my $here = shift;
 
@@ -195,6 +206,12 @@ sub dirlist {
     }
     return $markdown;
 }
+
+=head2 links
+
+This generates the navigation links based on the current page.
+
+=cut
 
 sub links {
     my $here = shift;
@@ -258,6 +275,14 @@ sub links {
     $html .= join('', @toprint);
     return $html;
 }
+
+=head2 include_link
+
+This returns whether or not the given link should be included in the navigation links based
+on whether it has already been included, and the number of links permitted by the C<maxlinks>
+setting.
+
+=cut
 
 sub include_link {
     my $link = shift;

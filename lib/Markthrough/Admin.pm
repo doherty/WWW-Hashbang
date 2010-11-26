@@ -1,3 +1,7 @@
+use strict;
+use warnings;
+#use diagnostics;
+
 package Markthrough::Admin;
 # ABSTRACT: provides admin pages to Markthrough
 
