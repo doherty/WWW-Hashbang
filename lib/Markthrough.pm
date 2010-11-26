@@ -99,7 +99,7 @@ get "/Markthrough.pm" => sub {
     $data->{links} = links('$filename'); # ?
     $data->{markthrough} = $sourcecode;
     $data->{footer} = markthrough_footer(undef, 'none');
-    $data->{skin} = vars->{skin} || 'greypages';
+    $data->{skin} = vars->{skin} || config->{skin} || 'greypages';
 
     template 'markthrough' => $data;
 };
@@ -136,7 +136,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         });
         $data->{links} = links($file);
         $data->{footer} = markthrough_footer($file, 'view');
-        $data->{skin} = vars->{skin} || 'greypages';
+        $data->{skin} = vars->{skin} || config->{skin} || 'greypages';
 
         template 'markthrough' => $data;
     }
@@ -146,7 +146,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         $data->{links} = links($file);
         $data->{markthrough} = markdown(dirlist($file));
         $data->{footer} = markthrough_footer($file, 'none');
-        $data->{skin} = vars->{skin} || 'greypages';
+        $data->{skin} = vars->{skin} || config->{skin} || 'greypages';
 
         template 'markthrough' => $data;
     }

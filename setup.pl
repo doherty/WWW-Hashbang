@@ -13,8 +13,9 @@ my $conf = Config::YAML->new(
 );
 
 my $prompts = {
-    'pages'     => ['x', 'Where are the Markdown files you want Markthrough to publish?', '', "$ENV{HOME}/pages"],
-    'maxlinks'  => ['r', 'How many links should I show in the navigation?', '', 10, 0, 100],
+    'pages'     => ['x', q{Where are the Markdown files you want Markthrough to publish?}, '', "$ENV{HOME}/pages"],
+    'maxlinks'  => ['r', q{How many links should I show in the navigation?}, '', 10, 0, 100],
+    'skin'      => ['e', q{Which skin should be your site's default?}, '', 'greypages', qr/(?:greypages|vector|style)/],
 };
 
 exit unless prompt('y', 'Begin setting up your Markthrough app?', '', 'y');
