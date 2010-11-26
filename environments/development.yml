@@ -1,7 +1,8 @@
 maxlinks:       5
-pages:          "/home/mike/pages"
+pages:          "t/pages"
 
-log:            "core"
+log:            "debug"
+logger:         "console"
 warnings:       1
 show_errors:    1
 

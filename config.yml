@@ -1,6 +1,4 @@
-layout:     "main"
-logger:     "file"
-log:        "debug"
-appname:    "Markthrough"
-
-maxlinks:   20
+appname:    Markthrough
+layout:     main
+log:        debug
+logger:     file

@@ -5,4 +5,3 @@ route_cache:    1
 
 # NEVER enable auto_reload in production
 auto_reload:    0
-
