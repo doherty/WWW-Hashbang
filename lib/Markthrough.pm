@@ -209,13 +209,13 @@ sub links {
     my $html = '';
 
     if ($here eq 'home') {
-        $html .= "<li class='here home'><a href='home'>"
+        $html .= "<li class='here home'><a href='/home'>"
             . "<span class='here home'>home</span>"
             . "</a></li>\n";
             $printed->{home} = 1;
     }
     else {
-        $html .= "<li class='home'><a href='home'>"
+        $html .= "<li class='home'><a href='/home'>"
             . "<span class='home'>home</span>"
             . "</a></li>\n";
             $printed->{home} = 1;
