@@ -36,7 +36,16 @@ get qr{^/?$} => sub {
 };
 
 # SOURCECODE
-get '/Markthrough.pm' => sub {
+get "/Markthrough.pm/src" => sub {
+#get '/' . config->{appname} . '.pm/src' => sub {
+    my $appname = config->{appname};
+    return redirect "/$appname.pm";
+};
+
+get "/Markthrough.pm" => sub {
+#get '/' . config->{appname} . '.pm' => sub {
+    my $appname  = config->{appname};
+
     # From http://sedition.com/perl/perl-colorizer.html
     require Syntax::Highlight::Perl::Improved;
     my $color_table = {
@@ -76,7 +85,7 @@ get '/Markthrough.pm' => sub {
     open(my $file, '<', $filename);
     $filename = basename($filename);
     my $sourcecode = <<"";
-<h1>Source code for <code>$filename</code></h1>
+<h1>Source code for <code>$appname.pm</code></h1>
 <pre id="source">
 
     while (<$file>) {
@@ -100,21 +109,16 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     my ($file) = splat;
     $file =~ tr{/}{.};
 
-    if ( -r config->{pages} . "/$file" ) {
-        my @lines = read_file(config->{pages} . "/$file");
-        my $data;
+    my @lines = read_file(config->{pages} . "/$file");
+    my $data;
 
-        $data->{title} = encode_entities($lines[0]);
-        $data->{markthrough} = join('', @lines);
-        $data->{links} = links($file);
-        $data->{footer} = markthrough_footer($file, 'source');
-        $data->{skin} = vars->{skin} || 'greypages';
+    $data->{title} = encode_entities($lines[0]);
+    $data->{markthrough} = join('', @lines);
+    $data->{links} = links($file);
+    $data->{footer} = markthrough_footer($file, 'source');
+    $data->{skin} = vars->{skin} || config->{skin} || 'greypages';
 
-        template 'source' => $data;
-    }
-    else {
-
-    }
+    template 'source' => $data;
 };
 
 # VIEW
@@ -174,9 +178,10 @@ sub markthrough_footer {
         my $modified = scalar localtime ((stat($filename))[9]);
         $markdown .= "Last modified $modified.\n"
     }
+    my $appname = config->{appname};
     $markdown .= <<"";
-Rendered by [Markthrough](http://hashbang.ca/~mike/page/projects/markthrough).[`pm`](/Markthrough.pm)
-using [`Text::Markdown`](http://search.cpan.org/perldoc?Text::Markdown).
+Rendered by [$appname](http://hashbang.ca/~mike/page/projects/markthrough).[`pm`](/$appname.pm)
+using [`Text::Markdown`](http://p3rl.org/Text::Markdown).
 
     return markdown($markdown);
 }
