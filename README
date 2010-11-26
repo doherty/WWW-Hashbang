@@ -1,0 +1,48 @@
+NAME
+    Markthrough - a simple CMS-like thing to quickly deploy text webpages
+
+VERSION
+    version 0.001
+
+  markthrough_footer
+    This generates a footer based on the page and mode of the current
+    request.
+
+  dirlist
+    This performs a "director" listing in the requested "directory".
+
+  links
+    This generates the navigation links based on the current page.
+
+  include_link
+    This returns whether or not the given link should be included in the
+    navigation links based on whether it has already been included, and the
+    number of links permitted by the "maxlinks" setting.
+
+AVAILABILITY
+    The latest version of this module is available from the Comprehensive
+    Perl Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a
+    CPAN site near you, or see <http://search.cpan.org/dist/Markthrough/>.
+
+    The development version lives at
+    <http://github.com/doherty/Markthrough.git> and may be cloned from
+    <git://github.com/doherty/Markthrough.git>. Instead of sending patches,
+    please fork this project using the standard git and github
+    infrastructure.
+
+BUGS AND LIMITATIONS
+    No bugs have been reported.
+
+    Please report any bugs or feature requests through the web interface at
+    <http://github.com/doherty/Markthrough/issues>.
+
+AUTHOR
+    Mike Doherty <doherty@cpan.org>
+
+COPYRIGHT AND LICENSE
+    This software is Copyright (c) 2010 by Mike Doherty.
+
+    This is free software, licensed under:
+
+      The GNU General Public License, Version 3, June 2007
+
