@@ -19,13 +19,19 @@ use autodie 2.10;
 
 prefix undef;
 
-my $skins = ['milk', 'greypages', 'vector', 'style'];
+my $skins = ['milk', 'greypages', 'vector', 'style', 'canada']; # should go in a config file?
 
 before sub {
     if( params->{useskin} ~~ $skins ) {
         var skin => params->{useskin};
+        set_cookie(
+            'skin'      => params->{useskin},
+            'expires'   => (time + (60 * 60 * 24 * 30 * 6)), # 6 months
+#            'domain'    => '',
+            'path'      => '/',
+        );
     }
-    elsif (cookies->{skin}) { # Cookie?
+    elsif (cookies->{skin}) {
         if (cookies->{skin}->value ~~ $skins) {
             var skin => cookies->{skin}->value;
         }
@@ -97,6 +103,7 @@ get "/Hashbang.pm" => sub {
     $data->{content} = $sourcecode;
     $data->{footer}  = footer(undef, 'none');
     $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
+    $data->{popup}   = popup($filename, $data->{skin});
 
     template 'hashbang' => $data;
 };
@@ -114,6 +121,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     $data->{links}   = links($file);
     $data->{footer}  = markthrough_footer($file, 'source');
     $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
+    $data->{popup}   = popup($file, $data->{skin});
 
     template 'hashbang-source' => $data;
 };
@@ -134,6 +142,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         $data->{links}   = links($file);
         $data->{footer}  = footer($file, 'view');
         $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
+        $data->{popup}   = popup($file, $data->{skin});
 
         template 'hashbang' => $data;
     }
@@ -144,6 +153,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         $data->{content} = markdown(dirlist($file));
         $data->{footer}  = footer($file, 'none');
         $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
+        $data->{popup}   = popup($file, $data->{skin});
 
         template 'hashbang' => $data;
     }
@@ -159,7 +169,7 @@ sub footer {
     my $page = shift;
     my $mode = shift;
 
-    my $markdown = '';
+    my $markdown = '<span id="popup-button"><input type="submit" value="Switch skins!" /></span>';
     if ($mode eq 'view') {
         $page =~ tr{.}{/};
         $markdown .= "View [page source](/$page/src).\n";
@@ -297,6 +307,47 @@ sub include_link {
     else {
         return false;
     }
+}
+
+=head2 popup
+
+This returns HTML for the popup skin switcher
+
+=cut
+
+sub popup {
+    my $page    = shift;
+    my $exclude = shift;
+    my $popup   = <<'END';
+            <div id="popup-visible" style="display:none;">
+                <a id="popup-close">x</a>
+                <h1>Try out another skin!</h1>
+                <p id="popup-text">
+                    Click any of the images below to switch to that skin.
+                    This will reload the page.
+                </p>
+                <div id='skin-images'>
+END
+
+    SKIN: foreach my $skin (@$skins){
+        next SKIN if $skin eq $exclude;
+        $popup .= <<"END";
+                    <div class='imgframe'>
+                        <a href="/$page?useskin=$skin">
+                            <img src="/images/skin-$skin-small.png" alt="Try the $skin skin" width="250px" />
+                        </a>
+                        <p>"$skin" &mdash; view it <a href="/images/skin-$skin.png">bigger</a></p>
+                    </div>
+END
+    }
+
+    $popup .= <<'END';
+                </div><!--/skin-images-->
+            </div><!--/popup-visible-->
+            <div id="popup-hidden" style="display:none;"></div><!--/popup-hidden-->
+END
+
+    return $popup;
 }
 
 

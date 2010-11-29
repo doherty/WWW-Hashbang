@@ -11,6 +11,9 @@
 <% content %>
         </pre>
     </div>
+    <div id="popup">
+        <% popup %>
+    </div>
     <div id="footer">
         <% footer %>
     </div>

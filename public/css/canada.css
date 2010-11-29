@@ -1,0 +1,274 @@
+@charset "UTF-8";
+
+body {
+    font-family: Arial, sans-serif;
+/*    background: transparent url('/images/Wallpaper-II-bg-red.png') no-repeat top right;*/
+}
+h1 {
+    font-size: 175%;
+    border-bottom: 1px dashed #2F6FAB;
+}
+h2 {
+    font-size: 130%;
+    text-decoration: underline;
+}
+h3 {
+    font-size: 100%;
+}
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #CC0000;
+    font-size: 0.9em;
+    height: 35px;
+}
+#sidebar h3 {
+    display: none;
+}
+#sidebar ul {
+    float: left;
+    margin: 0 auto;
+    padding: 0;
+}
+#sidebar li {
+    display: inline;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 5px 5px 0px 5px;
+    padding: 5px 5px 0px 5px;
+    float: left;
+    color: #FFFFFF;
+    text-transform: capitalize;
+}
+#sidebar li.here {
+    height: 30px;
+    background-color: #FFFFFF;
+    color: #CC0000;
+    font-weight: bold;
+}
+#sidebar li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    border-bottom: 1px dotted #FFFFFF;
+}
+#sidebar li.here a {
+    border-bottom: 1px dotted #CC0000;
+    color: #CC0000;
+}
+#sidebar li a:hover {
+    border: none;
+}
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #CC0000;
+    font-size: 0.75em;
+    height: 35px;
+}
+#footer p {
+    color: #FFFFFF;
+    float: right;
+    position: relative;
+    top: -5px;
+}
+a {
+    color: #555555;
+    text-decoration: none;
+    border-bottom: 1px dotted #555555;
+}
+a code {
+    border: none;
+}
+a:hover {
+    color: #CC5555;
+    border-bottom: 1px dotted #CC4444;
+}
+#footer span.email {
+    color: #FFFFFF;
+    border-bottom: 1px dotted #FFFFFF;
+}
+#footer a {
+    color: #FFFFFF;
+    text-decoration: none;
+    border-bottom: 1px dotted #FFFFFF;
+}
+#footer a:hover {
+    border: none;
+}
+#page {
+    width: 75%;
+    min-width: 50em;
+    margin-left: auto;
+    margin-right: auto;
+}
+#content {
+    padding: 1em 2em;
+    border: 1px dashed #2F6FAB;
+    background-color: #F9F9F9;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+#content p {
+    text-align: justify;
+    line-height: 1.5;
+}
+code {
+    border-bottom: 1px dotted black;
+}
+pre {
+    font-family: "DejaVu Mono", monospace;
+    line-height: 1.25em;
+    padding: 1em;
+    overflow: auto;         /* Give me scrollbars wherever you need to, but don't flow off the page. */
+    padding-bottom: 1em;    /* Add a line of space to avoid having a horizontal scrollbar crowd the text unconfortably. */
+    font-size: 100%;        /* Mostly for readability in Chrome. */
+    background: #FDFDFD;
+}
+table {
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid #AAAAAA;
+    border-collapse: collapse;
+    margin: 1em 1em 1em 0;
+}
+th, td {
+    padding: .25em;
+}
+th {
+    background: #F2F2F2 none repeat scroll 0 0;
+    text-align: center;
+    border: 1px solid #AAAAAA;
+}
+td {
+    border: 1px dashed #AAAAAA;
+}
+pre code, th code, td code {
+    border: none;
+}
+blockquote {
+    font-style: italic;
+}
+.dirlist {
+    list-style-type: square;
+    line-height: 1.5;
+}
+.at {
+    background: transparent url('/images/at-white.png') no-repeat;
+    color: #CC0000;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+.markdown {
+    margin-top: 3em;
+}
+
+/* Convenience classes */
+.right {
+    text-align: right;
+}
+
+/* Popup magic! */
+#popup-hidden {
+    display: none;
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6*/
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #000000;
+    border: 1px solid #cecece;
+    z-index: 1;
+}
+#popup-visible {
+    display: none;
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6*/
+    height: 350px;
+    width: 1100px;
+    background: #FFFFFF;
+    border: 2px solid #CECECE;
+    z-index: 2;
+    padding: 12px;
+    font-size: 13px;
+}
+#popup-visible h1 {
+    text-align: left;
+    color: #CC0000;
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 1px dotted #CC0000;
+    padding-bottom: 2px;
+    margin-bottom: 20px;
+}
+#popup-close {
+    font-size: 1.2em;
+    padding: 3px;
+    margin: 0px;
+    right: 12px;
+    top: 5px;
+    line-height: 0.75;
+    position: absolute;
+    color: #CC0000;
+    display: block;
+    border: 1px solid white;
+    cursor: pointer;
+}
+#popup-close:hover {
+    border: 1px dotted #CC0000;
+}
+#popup-button input {
+    margin: 0.5em;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px dotted #FFFFFF;
+    background-color: #CC0000;
+    color: #FFFFFF;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+}
+#popup-button input:hover {
+    border-bottom: none;
+}
+#skin-images {
+    margin-left:auto;
+    margin-right:auto;
+    width: 100%;
+}
+#skin-images a {
+    border: none;
+    text-decoration: none;
+}
+.imgframe {
+    float: left;
+    padding: 0.5em;
+}
+#content .imgframe {
+    float: none;
+}
+.imgframe p {
+    text-align: center;
+}
+.imgframe img {
+    border: 1px solid white;
+    padding: 4px;
+}
+.imgframe img:hover {
+    border: 1px dotted #CC0000;
+}
+#skin-images p a {
+    border-bottom: 1px dotted #555555;
+    color: #555555;
+}
+#skin-images p a:hover {
+    border-bottom: 1px dotted #CC4444;
+    color: #CC4444;
+}

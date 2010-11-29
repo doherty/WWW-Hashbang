@@ -149,10 +149,9 @@ blockquote {
 .right {
     text-align: right;
 }
-
 .imgframe {
     float: left;
-    padding: 1em;
+    padding: 0.5em;
 }
 .imgframe p {
     text-align: center;
@@ -166,4 +165,66 @@ blockquote {
 }
 .imgframe a {
     cursor: pointer;
+    border: none;
+}
+
+/* popup magic */
+#popup-hidden {
+    display: none;
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6*/
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #000000;
+    border: 1px solid #cecece;
+    z-index: 1;
+}
+#popup-visible {
+    display: none;
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6*/
+    height: 350px;
+    width: 1100px;
+    background: #EEEEEE;
+    border: 2px solid #CECECE;
+    z-index: 2;
+    padding: 12px;
+    font-size: 13px;
+    color: #252525;
+}
+#popup-visible h1 {
+    text-align: left;
+    color: #252525;
+    font-size: 22px;
+    font-weight: 700;
+    border-bottom: 1px dashed #555555;
+    padding-bottom: 2px;
+    margin-bottom: 20px;
+}
+#popup-close {
+    font-size: 1.2em;
+    font-family: monospace;
+    padding: 2px 5px;
+    right: 6px;
+    top: 4px;
+    position: absolute;
+    color: #252525;
+    font-weight: bold;
+    display: block;
+    border: 1px solid #555555;
+    cursor: pointer;
+}
+#popup-close:hover {
+    border: 1px dashed #555555
+}
+#popup-button input {
+    margin: 0.5em;
+    float: right;
+    background-color: transparent;
+    border: 1px solid #555555;
+}
+#popup-button input:hover {
+    border: 1px dashed #555555;
 }

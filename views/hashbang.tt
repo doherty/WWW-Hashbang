@@ -8,6 +8,9 @@
     <div id='content'>
 <% content %>
     </div>
+    <div id="popup">
+        <% popup %>
+    </div>
     <div id="footer">
         <% footer %>
     </div>

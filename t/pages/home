@@ -1,4 +1,17 @@
 Home
 ====
 
-This is the homepage!
+Ever get tired of writing tedius HTML when you just want to slap
+some text where people can see it? Enter `WWW::Hashbang` - a small
+web application written with [`Dancer`](http://p3rl.org/Dancer)
+quickly publishing text webpages.
+
+You write your content in an [expanded](http://p3rl.org/Text::MultiMarkdown)
+form of Markdown, a simple markup language, and `WWW::Hashbang` will
+turn it into a somewhat nice-looking webpage like this one. Now
+publishing is simple and fast, so you can concentrate on doing
+what matters, and let `WWW::Hashbang` handle the tedium.
+
+`WWW::Hashbang` was written by Mike Doherty. The latest version is
+available on the [CPAN](http://p3rl.org/WWW::Hashbang); you can find
+the development version on [github](https://github.com/doherty/WWW-Hashbang).
