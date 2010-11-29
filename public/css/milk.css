@@ -1,0 +1,209 @@
+@charset "UTF-8";
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Essays1743, "Linux Libertine", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
+    text-shadow: 0 0 1px #666677
+}
+h1 {
+    font-size: 250%;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 0 2px #666677
+}
+h1:before {
+    content: "❧ ";
+}
+h1:after {
+    content: " ❧";
+}
+h2 {
+    font-size: 150%;
+    text-decoration: underline;
+}
+body {
+    font-family: "Linux Libertine", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
+}
+#wrapper {
+    width: 100%;
+}
+#content {
+    font-family: "Linux Libertine", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
+    float: right;
+    color: #222233;
+    width: 80%;
+    padding-left: 1%;
+}
+#content li, #content p {
+    line-height: 150%;
+}
+a {
+    text-decoration: none;
+    border-bottom: 1px dotted #666677;
+    color: #222233;
+}
+#sidebar {
+    float: left;
+    padding-top: 1em;
+    font-family: Essays1743;
+    width: 15%;
+    font-size: 100%;
+}
+.here {
+    font-weight: bold;
+    text-decoration: underline;
+}
+#sidebar a {
+    text-decoration: none;
+    border: none;
+    color: #000000;
+}
+#sidebar a:hover {
+    text-decoration: underline;
+}
+#sidebar li {
+    list-style-type: square;
+    text-transform: capitalize;
+}
+#footer {
+    float: left;
+    color: #999999;
+    width: 100%;
+}
+#footer p{
+    font-size: 0.75em;
+}
+#footer a{
+    color:#999999;
+    border: none;
+    text-decoration: underline;
+    font-size: smaller;
+}
+table {
+    background-color: #FDFDFD;
+    padding: 1em;
+}
+th, td {
+    padding: .25em;
+}
+caption, th {
+    font-family: Essays1743;
+    background: #F2F2F2 none repeat scroll 0 0;
+    text-align: center;
+}
+caption {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+pre {
+    overflow: auto;
+    border: 1px dashed #222233;
+    background-color: #FDFDFD;
+    padding: 1em;
+}
+.at {
+    background: transparent url('/images/at-grey.png') no-repeat;
+    color: #FFFFFF;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+
+
+/* Convenience classes */
+.right {
+    text-align: right;
+}
+
+/* Popup magic! */
+#popup-hidden {
+    display: none;
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6*/
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #000000;
+    border: 1px solid #cecece;
+    z-index: 1;
+}
+#popup-visible {
+    display: none;
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6*/
+    height: 500px;
+    width: 600px;
+    background: #FFFFFF;
+    border: 2px solid #CECECE;
+    z-index: 2;
+    padding: 12px;
+    font-size: 13px;
+}
+#popup-visible h1 {
+    text-align: center;
+    font-size: 200%;
+    font-weight: bold;
+    border-bottom: 1px dotted #999999;
+    padding-bottom: 2px;
+    margin-bottom: 20px;
+}
+#popup-close {
+    font-size: 2em;
+    font-family: Essays1743;
+    padding: 0;
+    margin: 0;
+    right: 12px;
+    top: -10px;
+    position: absolute;
+    display: block;
+    border: none;
+    cursor: pointer;
+}
+#popup-close:hover {
+    color: #777777;
+}
+#popup-button input {
+    margin: 0.5em;
+    float: left;
+    border: 1px solid #999999;
+    font-size: 90%;
+    font-family: "Linux Libertine",Palatino,"Palatino Linotype","Book Antiqua",Georgia,"Times New Roman", serif;
+    color: #999999;
+}
+#skin-images {
+    margin-left:auto;
+    margin-right:auto;
+    width: 500px;
+}
+#skin-images a {
+    border: none;
+}
+.imgframe {
+    float: left;
+    padding: 1em;
+}
+.imgframe p {
+    text-align: center;
+    font-family: Essays1743;
+    position: relative;
+    bottom: 1em;
+}
+#content .imgframe {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    float: none;
+}
+#skin-images .imgframe img {
+    border: 1px solid white;
+    padding: 4px;
+}
+#skin-images .imgframe img:hover {
+    border: 1px dotted #666677;
+}
+#skin-images p a {
+    border-bottom: 1px dotted #666677;
+    color: #222233;
+    text-decoration: none;
+}
+

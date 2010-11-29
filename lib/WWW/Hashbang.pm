@@ -19,7 +19,7 @@ use autodie 2.10;
 
 prefix undef;
 
-my $skins = ['greypages', 'vector', 'style'];
+my $skins = ['milk', 'greypages', 'vector', 'style'];
 
 before sub {
     if( params->{useskin} ~~ $skins ) {
@@ -96,7 +96,7 @@ get "/Hashbang.pm" => sub {
     $data->{links}   = links('$filename'); # ?
     $data->{content} = $sourcecode;
     $data->{footer}  = footer(undef, 'none');
-    $data->{skin}    = vars->{skin} || config->{skin} || 'greypages';
+    $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
 
     template 'hashbang' => $data;
 };
@@ -113,7 +113,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     $data->{content} = join('', @lines);
     $data->{links}   = links($file);
     $data->{footer}  = markthrough_footer($file, 'source');
-    $data->{skin}    = vars->{skin} || config->{skin} || 'greypages';
+    $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
 
     template 'hashbang-source' => $data;
 };
@@ -133,7 +133,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         });
         $data->{links}   = links($file);
         $data->{footer}  = footer($file, 'view');
-        $data->{skin}    = vars->{skin} || config->{skin} || 'greypages';
+        $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
 
         template 'hashbang' => $data;
     }
@@ -143,7 +143,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         $data->{links}   = links($file);
         $data->{content} = markdown(dirlist($file));
         $data->{footer}  = footer($file, 'none');
-        $data->{skin}    = vars->{skin} || config->{skin} || 'greypages';
+        $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
 
         template 'hashbang' => $data;
     }
