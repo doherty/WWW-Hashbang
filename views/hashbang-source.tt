@@ -8,7 +8,7 @@
     <div id='content'>
         <h1>Source for <% title %></h1>
         <pre class='markdown'>
-<% markthrough %>
+<% content %>
         </pre>
     </div>
     <div id="footer">

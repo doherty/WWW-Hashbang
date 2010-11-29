@@ -1,4 +1,3 @@
-appname:    Markthrough
 layout:     main
 log:        debug
 logger:     file

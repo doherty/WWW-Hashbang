@@ -1,5 +1,5 @@
 NAME
-    Markthrough - a simple CMS-like thing to quickly deploy text webpages
+    WWW::Hashbang - a simple CMS-like thing to quickly deploy text webpages
 
 VERSION
     version 0.001
@@ -9,7 +9,7 @@ VERSION
     request.
 
   dirlist
-    This performs a "director" listing in the requested "directory".
+    This performs a "directory" listing in the requested "directory".
 
   links
     This generates the navigation links based on the current page.
@@ -22,7 +22,7 @@ VERSION
 AVAILABILITY
     The latest version of this module is available from the Comprehensive
     Perl Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a
-    CPAN site near you, or see <http://search.cpan.org/dist/Markthrough/>.
+    CPAN site near you, or see <http://search.cpan.org/dist/WWW-Hashbang/>.
 
     The development version lives at
     <http://github.com/doherty/Markthrough.git> and may be cloned from
@@ -34,7 +34,7 @@ BUGS AND LIMITATIONS
     No bugs have been reported.
 
     Please report any bugs or feature requests through the web interface at
-    <http://github.com/doherty/Markthrough/issues>.
+    <http://github.com/doherty/WWW-Hashbang/issues>.
 
 AUTHOR
     Mike Doherty <doherty@cpan.org>

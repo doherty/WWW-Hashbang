@@ -3,7 +3,7 @@ use warnings;
 use 5.010001;
 #use diagnostics;
 
-package Markthrough;
+package WWW::Hashbang;
 # ABSTRACT: a simple CMS-like thing to quickly deploy text webpages
 
 use Dancer 1.2000 qw(:syntax);
@@ -11,20 +11,22 @@ use Dancer::Cookie;
 use File::Slurp;
 use File::Basename qw(basename);
 use HTML::Entities;
-use Text::Markdown 1.000031 qw(markdown);
+use Text::MultiMarkdown 1.000031 qw(markdown);
 use autodie 2.10;
 
 # Bring in admin functions
-#use Markthrough::Admin;
+#use WWW::Hashbang::Admin;
 
 prefix undef;
 
+my $skins = ['greypages', 'vector', 'style'];
+
 before sub {
-    if (request->path =~ m{\?useskin=(greypages|vector|style)}) {
-        var skin => $1;
+    if( params->{useskin} ~~ $skins ) {
+        var skin => params->{useskin};
     }
     elsif (cookies->{skin}) { # Cookie?
-        if (cookies->{skin}->value ~~ ['greypages', 'vector', 'style']) {
+        if (cookies->{skin}->value ~~ $skins) {
             var skin => cookies->{skin}->value;
         }
     }
@@ -36,16 +38,11 @@ get qr{^/?$} => sub {
 };
 
 # SOURCECODE
-get "/Markthrough.pm/src" => sub {
-#get '/' . config->{appname} . '.pm/src' => sub {
-    my $appname = config->{appname};
-    return redirect "/$appname.pm";
+get "/Hashbang.pm/src" => sub {
+    return redirect "/Hashbang.pm";
 };
 
-get "/Markthrough.pm" => sub {
-#get '/' . config->{appname} . '.pm' => sub {
-    my $appname  = config->{appname};
-
+get "/Hashbang.pm" => sub {
     # From http://sedition.com/perl/perl-colorizer.html
     require Syntax::Highlight::Perl::Improved;
     my $color_table = {
@@ -85,7 +82,7 @@ get "/Markthrough.pm" => sub {
     open(my $file, '<', $filename);
     $filename = basename($filename);
     my $sourcecode = <<"";
-<h1>Source code for <code>$appname.pm</code></h1>
+<h1>Source code for <code>WWW::Hashbang</code></h1>
 <pre id="source">
 
     while (<$file>) {
@@ -95,13 +92,13 @@ get "/Markthrough.pm" => sub {
     close($file);
 
     my $data;
-    $data->{title} = $filename;
-    $data->{links} = links('$filename'); # ?
-    $data->{markthrough} = $sourcecode;
-    $data->{footer} = markthrough_footer(undef, 'none');
-    $data->{skin} = vars->{skin} || config->{skin} || 'greypages';
+    $data->{title}   = $filename;
+    $data->{links}   = links('$filename'); # ?
+    $data->{content} = $sourcecode;
+    $data->{footer}  = footer(undef, 'none');
+    $data->{skin}    = vars->{skin} || config->{skin} || 'greypages';
 
-    template 'markthrough' => $data;
+    template 'hashbang' => $data;
 };
 
 # SOURCE
@@ -112,13 +109,13 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     my @lines = read_file(config->{pages} . "/$file");
     my $data;
 
-    $data->{title} = encode_entities($lines[0]);
-    $data->{markthrough} = join('', @lines);
-    $data->{links} = links($file);
-    $data->{footer} = markthrough_footer($file, 'source');
-    $data->{skin} = vars->{skin} || config->{skin} || 'greypages';
+    $data->{title}   = encode_entities($lines[0]);
+    $data->{content} = join('', @lines);
+    $data->{links}   = links($file);
+    $data->{footer}  = markthrough_footer($file, 'source');
+    $data->{skin}    = vars->{skin} || config->{skin} || 'greypages';
 
-    template 'source' => $data;
+    template 'hashbang-source' => $data;
 };
 
 # VIEW
@@ -130,35 +127,35 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         my @lines = read_file(config->{pages} . "/$file");
         my $data;
 
-        $data->{title} = encode_entities($lines[0]);
-        $data->{markthrough} = markdown(join('', @lines), {
+        $data->{title}   = encode_entities($lines[0]);
+        $data->{content} = markdown(join('', @lines), {
             trust_list_start_value => 1,
         });
-        $data->{links} = links($file);
-        $data->{footer} = markthrough_footer($file, 'view');
-        $data->{skin} = vars->{skin} || config->{skin} || 'greypages';
+        $data->{links}   = links($file);
+        $data->{footer}  = footer($file, 'view');
+        $data->{skin}    = vars->{skin} || config->{skin} || 'greypages';
 
-        template 'markthrough' => $data;
+        template 'hashbang' => $data;
     }
     else {
         my $data;
-        $data->{title} = "Directory listing ($file)";
-        $data->{links} = links($file);
-        $data->{markthrough} = markdown(dirlist($file));
-        $data->{footer} = markthrough_footer($file, 'none');
-        $data->{skin} = vars->{skin} || config->{skin} || 'greypages';
+        $data->{title}   = "Directory listing ($file)";
+        $data->{links}   = links($file);
+        $data->{content} = markdown(dirlist($file));
+        $data->{footer}  = footer($file, 'none');
+        $data->{skin}    = vars->{skin} || config->{skin} || 'greypages';
 
-        template 'markthrough' => $data;
+        template 'hashbang' => $data;
     }
 };
 
-=head2 markthrough_footer
+=head2 footer
 
 This generates a footer based on the page and mode of the current request.
 
 =cut
 
-sub markthrough_footer {
+sub footer {
     my $page = shift;
     my $mode = shift;
 
@@ -178,17 +175,15 @@ sub markthrough_footer {
         my $modified = scalar localtime ((stat($filename))[9]);
         $markdown .= "Last modified $modified.\n"
     }
-    my $appname = config->{appname};
     $markdown .= <<"";
-Rendered by [$appname](http://hashbang.ca/~mike/page/projects/markthrough).[`pm`](/$appname.pm)
-using [`Text::Markdown`](http://p3rl.org/Text::Markdown).
+Rendered by [`WWW::Hashbang`](http://p3rl.org/WWW::Hashbang) ([see the source!](/Hashbang.pm)).
 
     return markdown($markdown);
 }
 
 =head2 dirlist
 
-This performs a "director" listing in the requested "directory".
+This performs a "directory" listing in the requested "directory".
 
 =cut
 
@@ -246,7 +241,7 @@ sub links {
     LINK: foreach my $file (@files) {
         # subpage
         if ( $file =~ tr/.// ) {    # faster than regex
-            $file =~ s/\..*$//;     # Extract the top-level dir
+            $file =~ s/\..*$//;     # extract the top-level dir
             if ( $here =~ m/^\Q$file\E/ ) {
                 if ( include_link($file, config->{maxlinks}, $printed) ) {
                     push(@toprint, "<li class='here'><a href='/$file' class='here'><span class='here'>../$file/</span></a></li>\n");

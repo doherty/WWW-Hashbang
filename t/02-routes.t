@@ -4,10 +4,10 @@ use Test::More 0.88;
 my $tests = 0;
 
 # the order is important
-use Markthrough;
+use WWW::Hashbang;
 use Dancer::Test;
 
-my @reqs = qw(/home /page-one /page-one/subpage /page-two /Markthrough.pm);
+my @reqs = qw(/home /page-one /page-one/subpage /page-two /Hashbang.pm);
 foreach my $req (@reqs) {
     route_exists(       ['GET' => $req],        "a route handler is defined for $req");
     $tests++;
@@ -15,7 +15,7 @@ foreach my $req (@reqs) {
     $tests++;
 }
 
-my @redirs = qw(/ /Markthrough.pm/src);
+my @redirs = qw(/ /Hashbang.pm/src);
 foreach my $req (@redirs) {
     route_exists(       ['GET' => $req],        "a route handler is defined for $req");
     $tests++;

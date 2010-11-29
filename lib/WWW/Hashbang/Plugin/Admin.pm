@@ -2,8 +2,8 @@ use strict;
 use warnings;
 #use diagnostics;
 
-package Markthrough::Admin;
-# ABSTRACT: provides admin pages to Markthrough
+package WWW::Hashbang::Plugin::Admin;
+# ABSTRACT: provides admin pages to WWW::Hashbang
 
 use Dancer ':syntax';
 prefix '/admin';

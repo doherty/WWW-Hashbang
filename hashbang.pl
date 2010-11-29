@@ -3,5 +3,5 @@ use strict;
 use warnings;
 use Dancer;
 use lib path(dirname(__FILE__), 'lib');
-load_app 'Markthrough';
+load_app 'WWW::Hashbang';
 dance;

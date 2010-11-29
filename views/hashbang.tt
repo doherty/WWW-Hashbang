@@ -6,7 +6,7 @@
         </ul>
     </div>
     <div id='content'>
-<% markthrough %>
+<% content %>
     </div>
     <div id="footer">
         <% footer %>
