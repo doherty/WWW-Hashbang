@@ -119,7 +119,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     $data->{title}   = encode_entities($lines[0]);
     $data->{content} = join('', @lines);
     $data->{links}   = links($file);
-    $data->{footer}  = markthrough_footer($file, 'source');
+    $data->{footer}  = footer($file, 'source');
     $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
     $data->{popup}   = popup($file, $data->{skin});
 
