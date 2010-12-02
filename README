@@ -4,7 +4,7 @@ NAME
 VERSION
     version 0.001
 
-  markthrough_footer
+  footer
     This generates a footer based on the page and mode of the current
     request.
 
@@ -19,14 +19,17 @@ VERSION
     navigation links based on whether it has already been included, and the
     number of links permitted by the "maxlinks" setting.
 
+  popup
+    This returns HTML for the popup skin switcher
+
 AVAILABILITY
     The latest version of this module is available from the Comprehensive
     Perl Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a
     CPAN site near you, or see <http://search.cpan.org/dist/WWW-Hashbang/>.
 
     The development version lives at
-    <http://github.com/doherty/Markthrough.git> and may be cloned from
-    <git://github.com/doherty/Markthrough.git>. Instead of sending patches,
+    <http://github.com/doherty/WWW-Hashbang.git> and may be cloned from
+    <git://github.com/doherty/WWW-Hashbang.git>. Instead of sending patches,
     please fork this project using the standard git and github
     infrastructure.
 
