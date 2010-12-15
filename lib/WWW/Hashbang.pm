@@ -99,7 +99,7 @@ get "/Hashbang.pm" => sub {
 
     my $data;
     $data->{title}   = $filename;
-    $data->{links}   = links('$filename'); # ?
+    $data->{links}   = links('$filename');
     $data->{content} = $sourcecode;
     $data->{footer}  = footer(undef, 'none');
     $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
@@ -150,7 +150,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         my $data;
         $data->{title}   = "Directory listing ($file)";
         $data->{links}   = links($file);
-        $data->{content} = markdown(dirlist($file));
+        $data->{content} = dirlist($file);
         $data->{footer}  = footer($file, 'none');
         $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
         $data->{popup}   = popup($file, $data->{skin});
@@ -214,7 +214,7 @@ sub dirlist {
         $file =~ tr{.}{/};
         $markdown .= " * [$title]($file) `($file)`\n";
     }
-    return $markdown;
+    return markdown($markdown);
 }
 
 =head2 links
