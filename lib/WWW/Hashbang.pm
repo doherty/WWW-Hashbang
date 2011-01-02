@@ -30,25 +30,34 @@ before sub {
             'domain'    => request->host,
             'path'      => request->path,
         );
+        debug 'Set skin to ' . vars->{skin} . ' by URL param; set a cookie';
     }
     elsif (cookies->{skin}) {
         if (cookies->{skin}->value ~~ $skins) {
             var skin => cookies->{skin}->value;
+            debug 'Set skin to ' . vars->{skin} . ' by cookie';
+        }
+        else {
+            warning 'Skin ' . cookies->{skin}->value . ' requested, but unknown';
+            warning "Valid skins are @$skins";
         }
     }
 };
 
 # REDIRECT
 get qr{^/?$} => sub {
+    debug 'Redirecting ' . splat . ' to /home';
     return redirect '/home';
 };
 
 # SOURCECODE
-get "/Hashbang.pm/src" => sub {
+get '/Hashbang.pm/src' => sub {
+    debug 'Redirecting /Hasnbang.pm/src to /Hashbang.pm';
     return redirect "/Hashbang.pm";
 };
 
 get "/Hashbang.pm" => sub {
+    debug 'Beginning source view';
     # From http://sedition.com/perl/perl-colorizer.html
     require Syntax::Highlight::Perl::Improved;
     my $color_table = {
@@ -85,6 +94,7 @@ get "/Hashbang.pm" => sub {
     }
 
     my $filename = __FILE__;
+    debug "Reading in $filename to highlight it...";
     open(my $file, '<', $filename);
     $filename = basename($filename);
     my $sourcecode = <<"";
@@ -112,6 +122,7 @@ get "/Hashbang.pm" => sub {
 get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     my ($file) = splat;
     $file =~ tr{/}{.};
+    debug "[source] Filename for page content is $file";
 
     my @lines = read_file(config->{pages} . "/$file");
     my $data;
@@ -130,6 +141,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
 get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
     my ($file) = splat;
     $file =~ tr{/}{.};
+    debug "[view] Filename for page content is $file";
 
     if ( -r config->{pages} . "/$file" ) {
         my @lines = read_file(config->{pages} . "/$file");
@@ -147,6 +159,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
         template 'hashbang' => $data;
     }
     else {
+        debug config->{pages} . "/$file doesn't exist; doing a dirlist";
         my $data;
         $data->{title}   = "Directory listing ($file)";
         $data->{links}   = links($file);
@@ -199,6 +212,7 @@ This performs a "directory" listing in the requested "directory".
 
 sub dirlist {
     my $here = shift;
+    debug 'Doing a dirlist of ' . config->{pages} . $here . '*';
 
     opendir(my $dir, config->{pages});
     my @files = grep { /^\Q$here\E\./ } readdir($dir);
@@ -225,6 +239,7 @@ This generates the navigation links based on the current page.
 
 sub links {
     my $here = shift;
+    debug "Doing links for $here; looking in " . config->{pages};
 
     opendir(my $dir, config->{pages});
     my @files = grep {! /(?:^\.|[~#]$)/ } readdir($dir);
