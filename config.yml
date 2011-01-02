@@ -1,3 +1,4 @@
-layout:     main
-log:        error
-logger:     file
+layout:     "main"
+log:        "error"
+logger:     "file"
+charset:    "UTF-8"

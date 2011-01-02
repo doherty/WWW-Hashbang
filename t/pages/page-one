@@ -2,3 +2,5 @@ One
 ===
 
 This is the first content page, and it has one [subpage](page-one/subpage).
+
+It also has some unicode characters in it: Ævar Arnfjörð Bjarmason

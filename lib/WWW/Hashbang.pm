@@ -8,7 +8,6 @@ package WWW::Hashbang;
 
 use Dancer 1.2000 qw(:syntax);
 use Dancer::Cookie;
-use File::Slurp;
 use File::Basename qw(basename);
 use HTML::Entities;
 use Text::MultiMarkdown 1.000031 qw(markdown);
@@ -95,17 +94,18 @@ get "/Hashbang.pm" => sub {
 
     my $filename = __FILE__;
     debug "Reading in $filename to highlight it...";
-    open(my $file, '<', $filename);
+    open(my $fh, '<', $filename);
+    binmode $fh, ':utf8';
     $filename = basename($filename);
     my $sourcecode = <<"";
 <h1>Source code for <code>WWW::Hashbang</code></h1>
 <pre id="source">
 
-    while (<$file>) {
+    while (<$fh>) {
         $sourcecode .= $formatter->format_string;
     }
     $sourcecode .= '</pre>';
-    close($file);
+    close($fh);
 
     my $data;
     $data->{title}   = $filename;
@@ -124,7 +124,10 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     $file =~ tr{/}{.};
     debug "[source] Filename for page content is $file";
 
-    my @lines = read_file(config->{pages} . "/$file");
+    open(my $fh, '<', config->{pages} . "/$file");
+    binmode $fh, ':utf8';
+    my @lines = <$fh>;
+    close $fh;
     my $data;
 
     $data->{title}   = encode_entities($lines[0]);
@@ -144,7 +147,10 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
     debug "[view] Filename for page content is $file";
 
     if ( -r config->{pages} . "/$file" ) {
-        my @lines = read_file(config->{pages} . "/$file");
+        open(my $fh, '<', config->{pages} . "/$file");
+        binmode $fh, ':utf8';
+        my @lines = <$fh>;
+        close $fh;
         my $data;
 
         $data->{title}   = encode_entities($lines[0]);
@@ -223,6 +229,7 @@ sub dirlist {
     $markdown .= '=' x (length($markdown)-1) . "\n";
     foreach my $file (@files) {
         open my $fh, '<', config->{pages} . "/$file";
+        binmode $fh, ':utf8';
         my $title = <$fh>;
         close $fh;
         $file =~ tr{.}{/};
