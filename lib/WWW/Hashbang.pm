@@ -109,7 +109,7 @@ get "/Hashbang.pm" => sub {
 
     my $data;
     $data->{title}   = $filename;
-    $data->{links}   = links('$filename');
+    $data->{links}   = links($filename);
     $data->{content} = $sourcecode;
     $data->{footer}  = footer(undef, 'none');
     $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
