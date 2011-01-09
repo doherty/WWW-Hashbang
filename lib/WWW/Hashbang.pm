@@ -131,7 +131,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     my $data;
 
     $data->{title}   = encode_entities($lines[0]);
-    $data->{content} = join('', @lines);
+    $data->{content} = encode_entities(join('', @lines));
     $data->{links}   = links($file);
     $data->{footer}  = footer($file, 'source');
     $data->{skin}    = vars->{skin} || config->{skin} || $skins->[0];
