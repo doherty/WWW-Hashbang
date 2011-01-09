@@ -1,25 +1,24 @@
 use strict;
 use warnings;
 use Test::More 0.88;
-my $tests = 0;
 
 # the order is important
 use WWW::Hashbang;
 use Dancer::Test;
 
 my @reqs = qw(/home /page-one /page-one/subpage /page-two /Hashbang.pm);
+my @redirs = qw(/ /Hashbang.pm/src);
+plan tests => scalar(@reqs)*4 - 1 + scalar(@redirs)*2;
+
 foreach my $req (@reqs) {
-    route_exists(       ['GET' => $req],        "a route handler is defined for $req");
-    $tests++;
-    response_status_is( ['GET' => $req], 200,   "response status is 200 for $req");
-    $tests++;
+    route_exists(       ['GET' => $req],            "a route handler is defined for $req");
+    route_exists(       ['GET' => "$req/src"],      "a route handler is defined for $req/src");
+    response_status_is( ['GET' => $req], 200,       "response status is 200 for $req");
+    next if $req eq '/Hashbang.pm'; # It'll be a 302, tested below
+    response_status_is( ['GET' => "$req/src"], 200, "response status is 200 for $req/src");
 }
 
-my @redirs = qw(/ /Hashbang.pm/src);
 foreach my $req (@redirs) {
     route_exists(       ['GET' => $req],        "a route handler is defined for $req");
-    $tests++;
     response_status_is( ['GET' => $req], 302,   "response status is 302 for $req");
-    $tests++;
 }
-done_testing $tests;

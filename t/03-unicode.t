@@ -13,4 +13,4 @@ use WWW::Hashbang;
 use Dancer::Test;
 
 my $avar = "Ævar Arnfjörð Bjarmason</p>";
-response_content_like(['GET', '/page-one'], qr/\Q$avar\E/, 'Unicode comes through unscathed');
+response_content_like(['GET' => '/page-one'], qr/\Q$avar\E/, 'Unicode comes through unscathed');
