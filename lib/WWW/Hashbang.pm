@@ -27,9 +27,9 @@ before sub {
             'skin'      => params->{useskin},
             'expires'   => (time + (60 * 60 * 24 * 30 * 6)), # 6 months
             'domain'    => request->host,
-            'path'      => request->path,
         );
-        debug 'Set skin to ' . vars->{skin} . ' by URL param; set a cookie';
+        header('Set-Cookie' => cookies->{skin}->to_header());
+        debug 'Set skin to ' . params->{useskin} . ' by URL param; set a cookie';
     }
     elsif (cookies->{skin}) {
         if (cookies->{skin}->value ~~ $skins) {
