@@ -95,7 +95,7 @@ get "/Hashbang.pm" => sub {
     my $filename = __FILE__;
     debug "Reading in $filename to highlight it...";
     open(my $fh, '<', $filename);
-    binmode $fh, ':utf8';
+    binmode $fh, ':encoding(UTF-8)';
     $filename = basename($filename);
     my $sourcecode = <<"";
 <h1>Source code for <code>WWW::Hashbang</code></h1>
@@ -125,7 +125,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)/src$} => sub {
     debug "[source] Filename for page content is $file";
 
     open(my $fh, '<', config->{pages} . "/$file");
-    binmode $fh, ':utf8';
+    binmode $fh, ':encoding(UTF-8)';
     my @lines = <$fh>;
     close $fh;
     my $data;
@@ -148,7 +148,7 @@ get qr{^/([[:alpha:][:digit:]/_-]+)$} => sub {
 
     if ( -r config->{pages} . "/$file" ) {
         open(my $fh, '<', config->{pages} . "/$file");
-        binmode $fh, ':utf8';
+        binmode $fh, ':encoding(UTF-8)';
         my @lines = <$fh>;
         close $fh;
         my $data;
@@ -188,7 +188,7 @@ sub footer {
     my $page = shift;
     my $mode = shift;
 
-    my $markdown = '<span id="popup-button"><input type="submit" value="Switch skins!" /></span>';
+    my $markdown = '<span id="popup-button"><input type="submit" value="Switch skins!" /></span>&nbsp;';
     if ($mode eq 'view') {
         $page =~ tr{.}{/};
         $markdown .= "View [page source](/$page/src).\n";
@@ -229,7 +229,7 @@ sub dirlist {
     $markdown .= '=' x (length($markdown)-1) . "\n";
     foreach my $file (@files) {
         open my $fh, '<', config->{pages} . "/$file";
-        binmode $fh, ':utf8';
+        binmode $fh, ':encoding(UTF-8)';
         my $title = <$fh>;
         close $fh;
         $file =~ tr{.}{/};
